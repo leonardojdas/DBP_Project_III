@@ -1,0 +1,97 @@
+﻿@model deAndrade_Project_III.Models.UpsertInvoiceLineItemModel
+@{
+    ViewBag.Title = " - Invoices Items";
+}
+
+<h2><span id="title"></span> Invoice Line Item</h2>
+
+@using (Html.BeginForm("Upsert", "InvoiceLineItem", FormMethod.Post))
+{
+    <div class="upsert-container">
+        
+        @if (!Model.IsNull())
+        {
+            <div class="no-collapsing">
+                <div class="form-title"><span class="theader">Invoice ID</span></div>
+                <div class="form-field">
+                    @Model.InvoiceLineItem.InvoiceID
+                </div>
+            </div>
+            <div><hr /></div>
+        }
+        <input type="hidden" id="invoiceId" name="InvoiceLineItem.InvoiceID" value="" />
+
+        
+        @if (!Model.IsNull())
+        {
+            <div class="no-collapsing">
+                <div class="form-title"><span class="theader">Product</span></div>
+                <div class="form-field">
+                    @Model.InvoiceLineItem.Product.Description
+                    @Html.HiddenFor(gm => gm.InvoiceLineItem.ProductCode)
+                </div>
+            </div>
+            <div><hr /></div>
+        }
+        else
+        {
+            <div class="no-collapsing">
+                <div class="form-title"><span class="theader">Product Code</span></div>
+                <div class="form-field">
+                    <select name="InvoiceLineItem.ProductCode" class="form-control">
+                        @foreach (var product in Model.Products)
+                        {
+                            <option value="@product.ProductCode">@product.Description</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div><hr /></div>
+        }
+
+        @Html.HiddenFor(gm => gm.InvoiceLineItem.UnitPrice)
+        @if (!Model.IsNull())
+        {
+            <div class="no-collapsing">
+                <div class="form-title"><span class="theader">Unit Price</span></div>
+                <div class="form-field">
+                    @Model.InvoiceLineItem.UnitPrice.ToString("f2")
+                </div>
+            </div>
+            <div><hr /></div>
+        }
+
+        <div class="no-collapsing">
+            <div class="form-title"><span class="theader">Quantity</span></div>
+            <div class="form-field">
+                @Html.HiddenFor(gm => gm.InvoiceLineItem.Quantity, new { @type = "number", @class = "form-control", @step = "1.00", placeholder = "Quantity", @min = "1" })
+            </div>
+        </div>
+        <div><hr /></div>
+
+        @Html.HiddenFor(gm => gm.InvoiceLineItem.ItemTotal)
+        @if (!Model.IsNull())
+        {
+            <div class="no-collapsing">
+                <div class="form-title"><span class="theader">Item Total</span></div>
+                <div class="form-field">
+                    @Model.InvoiceLineItem.ItemTotal.ToString("f2")
+                </div>
+            </div>
+            <div><hr /></div>
+        }
+    </div>
+    <div class="align-content-center">
+        <input type="submit" value="Submit" class="btn btn-default" />
+        <input type="button" value="Back to the list" onclick="new Book().Back();" class="btn btn-default" />
+        @if (!Model.IsNull())
+        {
+            <input type="button" value="Delete" onclick="new Book().ApiHandler('DELETE', '@Model.InvoiceLineItem.InvoiceID-@Model.InvoiceLineItem.ProductCode');" class="btn btn-danger" />
+        }
+    </div>
+}
+<script>
+    window.onload = () => {
+        new Book().GetInvoiceId();
+    };
+</script>

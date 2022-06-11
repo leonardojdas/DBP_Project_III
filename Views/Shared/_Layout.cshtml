@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Store @ViewBag.Title</title>
+    <link rel="stylesheet" href="~/Content/main.css" />
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-fixed-top navbar-new">
+        <div class="container">
+            <div class="navbar-header navbar-logo">
+                <a href="/Home"><img src="~/logo.png" class="logo" /></a>
+            </div>
+            <div class="navbar-collapse collapse">
+                    <div class="menu-item">@Html.ActionLink("States", "All", "State")</div>
+                    <div class="menu-item">@Html.ActionLink("Customers", "All", "Customer")</div>
+                    <div class="menu-item">@Html.ActionLink("Invoices", "All", "Invoice")</div>
+                    @*<div class="menu-item">@Html.ActionLink("Invoice Line Item", "All", "InvoiceLineItem")</div>*@
+                    <div class="menu-item">@Html.ActionLink("Products", "All", "Product")</div>
+                    @*<div class="menu-item">@Html.ActionLink("Order Option", "All", "Product")</div>*@
+                    <div class="menu-item">@Html.ActionLink("Order Options", "All", "OrderOption")</div>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>Project III - Leonardo de Andrade</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+    <script src="~/Scripts/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+﻿@model deAndrade_Project_III.Models.UpsertStateModel
+@{
+    ViewBag.Title = " - States";
+}
+
+<h2><span id="title"></span> Product</h2>
+
+@using (Html.BeginForm("Upsert", "State", FormMethod.Post))
+{
+    <div class="upsert-container">
+        <div class="no-collapsing">
+            <div class="form-title"><span class="theader">State Code</span></div>
+            <div class="form-field">
+                @if (Model.IsNull())
+                {
+                    @Html.TextBoxFor(gm => gm.State.StateCode, new { @class = "form-control", @maxlength = "2", placeholder = "State Code" })
+                }
+                else
+                {
+                    @Html.HiddenFor(gm => gm.State.StateCode)
+                    @Model.State.StateCode.Trim();
+                }
+            </div>
+        </div>
+
+        <div><hr /></div>
+        <div class="no-collapsing">
+            <div class="form-title"><span class="theader">State Name</span></div>
+            <div class="form-field">
+                @Html.TextBoxFor(gm => gm.State.StateName, new { @class = "form-control", placeholder = "State Name" })
+            </div>
+        </div>
+
+        <div><hr /></div>
+        <div class="no-collapsing">
+            <div class="form-title"><span class="theader">Country</span></div>
+            <div class="form-field">
+                @Html.TextBoxFor(gm => gm.State.Country, new { @class = "form-control", placeholder = "Country", maxlength = "3" })
+            </div>
+        </div>
+
+    </div>
+    <div class="align-content-center">
+        <input type="submit" value="Submit" class="btn btn-default" />
+        <input type="button" value="Back to the list" onclick="new Book().Back();" class="btn btn-default" />
+        @if (!Model.IsNull())
+        {
+            <input type="button" value="Delete" onclick="new Book().ApiHandler('DELETE', '@Model.State.StateCode.Trim()');" class="btn btn-danger" />
+        }
+    </div>
+}

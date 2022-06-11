@@ -1,0 +1,40 @@
+﻿@model List<deAndrade_Project_III.Models.State>
+@{
+    ViewBag.Title = " - States";
+}
+
+<h2>State's List</h2>
+
+<div id="search" class="">
+    <input type="text" id="txtSearch" class="form-control" placeholder="Search">
+    <button class="btn btn-default" type="button" onclick="new Book().Search()">Search</button>
+</div>
+
+<div id="new-customer" class="">
+    <a class="btn btn-default" onclick="new Book().Upsert();">Add new state</a>
+</div>
+
+<table class="table table-hover">
+    <thead class="thead-light">
+        <tr>
+            <th><span class="theader">State Code</span></th>
+            <th><span class="theader">State Name</span></th>
+            <th><span class="theader">Country</span></th>
+            <th><span class="theader">Actions</span></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var state in Model)
+        {
+        <tr>
+            <td>@state.StateCode</td>
+            <td>@state.StateName</td>
+            <td>@state.Country</td>
+            <td>
+                <span class="far fa-edit" onclick="new Book().Upsert('@state.StateCode');" title="Edit" ></span>&nbsp;&nbsp;
+                <span class="far fa-trash-alt" onclick="new Book().ApiHandler('DELETE', '@state.StateCode.Trim()');" title="Delete"></span>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

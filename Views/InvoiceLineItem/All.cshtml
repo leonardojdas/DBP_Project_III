@@ -1,0 +1,51 @@
+﻿@model List<deAndrade_Project_III.Models.InvoiceLineItem>
+@{
+    ViewBag.Title = " - Invoices Items";
+}
+
+<script>
+    window.onload = () => {
+        new Book().GetInvoiceId();
+    };
+</script>
+
+<h2>Invoice <span id="invoiceId"></span>: list of items</h2>
+
+<div id="search" class="">
+    <input type="text" id="txtSearch" class="form-control" placeholder="Search">
+    <button class="btn btn-default" type="button" onclick="new Book().Search()">Search</button>
+</div>
+
+<div id="new-customer" class="">
+    <input type="button" value="Back to invoice list" onclick="new Book().Back();" class="btn btn-default" />
+    <a class="btn btn-default" onclick="new Book().Upsert();">Add new item</a>
+</div>
+
+<table class="table table-hover">
+    <thead class="thead-light">
+        <tr>
+            <th><span class="theader">Product Code</span></th>
+            <th><span class="theader">Description</span></th>
+            <th><span class="theader">Unit Price</span></th>
+            <th><span class="theader">Quantity</span></th>
+            <th><span class="theader">Item Total</span></th>
+            <th><span class="theader">Actions</span></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var invoice in Model)
+        {
+            <tr>
+                <td>@invoice.ProductCode</td>
+                <td>@invoice.Product.Description</td>
+                <td>@invoice.UnitPrice.ToString("f2")</td>
+                <td>@invoice.Quantity</td>
+                <td>@invoice.ItemTotal.ToString("f2")</td>
+                <td>
+                    <span class="far fa-edit" onclick="new Book().Upsert('@invoice.ProductCode');" title="Edit"></span>&nbsp;&nbsp;
+                    <span class="far fa-trash-alt" onclick="new Book().ApiHandler('DELETE', '@invoice.InvoiceID-@invoice.ProductCode');" title="Delete"></span>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

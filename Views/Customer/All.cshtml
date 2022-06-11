@@ -1,0 +1,48 @@
+﻿@model List<deAndrade_Project_III.Models.Customer>
+@{
+    ViewBag.Title = " - Customers";
+}
+
+<h2>Customers's List</h2>
+
+<div id="search" class="">
+    <input type="text" id="txtSearch" class="form-control" placeholder="Search">
+    <button class="btn btn-default" type="button" onclick="new Book().Search()">Search</button>
+</div>
+
+<div id="new-customer" class="">
+    <a class="btn btn-default" onclick="new Book().Upsert();">Add new customer</a>
+</div>
+
+<table class="table table-hover">
+    <thead class="thead-light">
+        <tr>
+            <th><span class="theader">ID</span></th>
+            <th><span class="theader">Name</span></th>
+            <th><span class="theader">Email</span></th>
+            <th><span class="theader">Address</span></th>
+            <th><span class="theader">City</span></th>
+            <th><span class="theader">State</span></th>
+            <th><span class="theader">ZipCode</span></th>
+            <th><span class="theader">Actions</span></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var customer in Model)
+        {
+            <tr>
+                <td>@customer.CustomerID</td>
+                <td>@customer.Name</td>
+                <td>@customer.Email</td>
+                <td>@customer.Address</td>
+                <td>@customer.City</td>
+                <td>@customer.State</td>
+                <td>@customer.ZipCode</td>
+                <td>
+                    <span class="far fa-edit" onclick="new Book().Upsert('@customer.CustomerID');" title="Edit"></span>&nbsp;&nbsp;
+                    <span class="far fa-trash-alt" onclick="new Book().ApiHandler('DELETE', '@customer.CustomerID');" title="Delete"></span>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
